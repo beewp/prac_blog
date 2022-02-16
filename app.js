@@ -1,9 +1,12 @@
 const express = require("express");
-const connect = require("./schemas");
+const path = require('path');
 const app = express();
 const port = 3000;
 
+const connect = require("./schemas");
+const indexRouter = require('./routes/index');
 const postsRouter = require("./routes/posts");
+const comentsRouter = require("./routes/coments");
 
 connect();
 
@@ -18,15 +21,13 @@ const RequestMiddleware = (req, res, next) => {
 //미들웨어 사용
 app.use(express.static("static"));
 app.use(express.json()); 
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 app.use(RequestMiddleware);
 
-app.use("/api", [postsRouter]);
+app.use("/post", [postsRouter]);
+app.use("/coments", [comentsRouter]);
 
 // 라우터
-app.get('/', (req, res) => {
-    res.send("Hello World");
-});
 
 app.listen(port, () => {
     console.log(port, "서버가 켜졌어요");
