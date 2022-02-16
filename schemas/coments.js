@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
 
 const { Schema } = mongoose;
-const { type: { ObjectId }} = Schema;
+const { Types: { ObjectId } } = Schema;
 const comentsSchema = new mongoose.Schema({
     postId: {
         type: ObjectId,
         required: true,
-        ref: 'Post'
+        ref: 'Post',
     },
     author: {
         type: String,
@@ -18,7 +18,6 @@ const comentsSchema = new mongoose.Schema({
     },
     dateTime: {
         type: Date,
-        required: true,
         default: Date.now,
     },
 });
