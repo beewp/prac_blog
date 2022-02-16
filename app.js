@@ -9,6 +9,7 @@ connect();
 
 const RequestMiddleware = (req, res, next) => {
     console.log("Request Url:", req.originalUrl, "-", new Date());
+
     next(); //다음 미들웨어로 넘어감, 서버가 안끝날 수 있음
     // res.send("미들웨어의 응답");// 안좋은 코드, 복잡해짐
 };
@@ -16,8 +17,8 @@ const RequestMiddleware = (req, res, next) => {
 
 //미들웨어 사용
 app.use(express.static("static"));
-app.use(express.json()); //json 파싱해주는 미들웨어
-app.use(express.urlencoded());
+app.use(express.json()); 
+app.use(express.urlencoded({ extended: true }));
 app.use(RequestMiddleware);
 
 app.use("/api", [postsRouter]);
