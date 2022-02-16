@@ -1,15 +1,9 @@
 const mongoose = require("mongoose");
 
 const PostSchema = new mongoose.Schema({
-    postId: {
-        type: Number,
-        required: true,
-        unique: true
-    },
     title: {
-        type: Number,
+        type: String,
         required: true,
-        unique: true
     },
     author: {
         type: String,
@@ -20,9 +14,15 @@ const PostSchema = new mongoose.Schema({
         required: true,
     },
     dateTime: {
-        type: String,
+        type: Date,
         required: true,
+        default: Date.now
     },
 });
+
+// PostSchema.virtual("postId").get(function(){
+//     return this._id.toHexString();
+// });
+// PostSchema.set("toJSON",{virtuals: true});
 
 module.exports = mongoose.model("Post", PostSchema);

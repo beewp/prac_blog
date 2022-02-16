@@ -1,10 +1,12 @@
 const mongoose = require("mongoose");
 
+const { Schema } = mongoose;
+const { type: { ObjectId }} = Schema;
 const comentsSchema = new mongoose.Schema({
     postId: {
-        type: Number,
+        type: ObjectId,
         required: true,
-        unique: true
+        ref: 'Post'
     },
     author: {
         type: String,
@@ -15,9 +17,16 @@ const comentsSchema = new mongoose.Schema({
         required: true,
     },
     dateTime: {
-        type: String,
+        type: Date,
         required: true,
+        default: Date.now,
     },
 });
+
+// comentsSchema.virtual("comentsId").get(function(){
+//     return this._id.toHexString();
+// });
+
+// comentsSchema.set("toJSON",{virtuals: true});
 
 module.exports = mongoose.model("Coments", comentsSchema);
