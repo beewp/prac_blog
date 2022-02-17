@@ -3,6 +3,7 @@ const path = require('path');
 const app = express();
 const port = 3000;
 
+//라우터 경로
 const connect = require("./schemas");
 const indexRouter = require('./routes/index');
 const postsRouter = require("./routes/posts");
@@ -18,16 +19,17 @@ const RequestMiddleware = (req, res, next) => {
 };
 
 
-//미들웨어 사용
+//미들웨어 
 app.use(express.static("static"));
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: false }));
 app.use(RequestMiddleware);
 
+//라우터
+app.use("/", [indexRouter]);
 app.use("/post", [postsRouter]);
 app.use("/coments", [comentsRouter]);
 
-// 라우터
 
 app.listen(port, () => {
     console.log(port, "서버가 켜졌어요");
